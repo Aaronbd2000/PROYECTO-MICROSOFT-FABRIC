@@ -1,0 +1,68 @@
+CREATE TABLE dbo.brokers (
+    BrokerID INT,
+    BrokerName VARCHAR(100),
+    Region VARCHAR(50),
+    Email VARCHAR(100)
+);
+
+CREATE TABLE dbo.campaigns (
+    CampaignID INT,
+    Channel VARCHAR(50),
+    CampaignName VARCHAR(100),
+    StartDate DATE,
+    EndDate DATE,
+    BudgetUSD DECIMAL(10, 2)
+);
+
+CREATE TABLE dbo.clients (
+    ClientID INT,
+    FirstName VARCHAR(100),
+    LastName VARCHAR(100),
+    Email VARCHAR(100),
+    Region VARCHAR(50)
+);
+
+CREATE TABLE dbo.leads (
+    LeadID INT,
+    ClientID INT,
+    PropertyID INT,
+    CampaignID INT,
+    LeadDate DATE,
+    LeadSource VARCHAR(50)
+);
+
+CREATE TABLE dbo.projects (
+    ProjectID INT,
+    ProjectName VARCHAR(100),
+    City VARCHAR(100),
+    Region VARCHAR(50),
+    LaunchYear INT,
+    Status VARCHAR(50)
+);
+
+CREATE TABLE dbo.properties (
+    PropertyID INT,
+    ProjectID INT,
+    PropertyType VARCHAR(50),
+    Size_m2 INT,
+    Bedrooms INT,
+    Bathrooms INT,
+    ListPriceUSD DECIMAL(12, 2),
+    AvailabilityStatus VARCHAR(50)
+);
+
+CREATE TABLE dbo.sales (
+    SaleID INT,
+    PropertyID INT,
+    ClientID INT,
+    BrokerID INT,
+    SaleDate DATE,
+    SalePriceUSD DECIMAL(12, 2)
+);
+
+
+
+
+
+
+

@@ -1,0 +1,544 @@
+{
+    "name": "PIPE_INGESTA_ADLS",
+    "objectId": "f34d325e-4fef-4e7f-b2d0-92e927dc5f0d",
+    "properties": {
+        "activities": [
+            {
+                "name": "EXTRACC_BROKERS",
+                "type": "Copy",
+                "state": "Inactive",
+                "onInactiveMarkAs": "Succeeded",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings",
+                            "skipLineCount": 0
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "DelimitedText",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "brokers.csv",
+                                    "folderPath": "raw_data",
+                                    "fileSystem": "realstate"
+                                },
+                                "columnDelimiter": ",",
+                                "rowDelimiter": "\n",
+                                "escapeChar": "\\",
+                                "firstRowAsHeader": true,
+                                "quoteChar": "\""
+                            },
+                            "schema": [],
+                            "externalReferences": {
+                                "connection": "ae620a9a-d816-4533-9c97-f4f8185b27cf"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "LakehouseWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "fileExtension": ".txt"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "LKH_AMHP_DEV",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "e81fea78-4fd9-46b8-85c1-0361f8950cde",
+                                        "artifactId": "7cae3d3f-bea7-426a-ab18-5882ed91fb35",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "DelimitedText",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "brokers",
+                                    "folderPath": "Raw"
+                                },
+                                "columnDelimiter": ",",
+                                "escapeChar": "\\",
+                                "firstRowAsHeader": true,
+                                "quoteChar": "\""
+                            },
+                            "schema": []
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                }
+            },
+            {
+                "name": "EXTRACC_PROJECTS",
+                "type": "Copy",
+                "state": "Inactive",
+                "onInactiveMarkAs": "Succeeded",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "DelimitedText",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "projects.csv",
+                                    "folderPath": "raw_data",
+                                    "fileSystem": "realstate"
+                                },
+                                "columnDelimiter": ",",
+                                "escapeChar": "\\",
+                                "firstRowAsHeader": true,
+                                "quoteChar": "\""
+                            },
+                            "schema": [],
+                            "externalReferences": {
+                                "connection": "ae620a9a-d816-4533-9c97-f4f8185b27cf"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "LakehouseWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "fileExtension": ".txt"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "LKH_AMHP_DEV",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "e81fea78-4fd9-46b8-85c1-0361f8950cde",
+                                        "artifactId": "7cae3d3f-bea7-426a-ab18-5882ed91fb35",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "DelimitedText",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "PROYECTS",
+                                    "folderPath": "Raw"
+                                },
+                                "columnDelimiter": ",",
+                                "escapeChar": "\\",
+                                "firstRowAsHeader": true,
+                                "quoteChar": "\""
+                            },
+                            "schema": []
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "EXTRACCION_PROPERTIES",
+                "type": "Copy",
+                "state": "Inactive",
+                "onInactiveMarkAs": "Succeeded",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "BinarySource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true
+                        },
+                        "formatSettings": {
+                            "type": "BinaryReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "properties.csv",
+                                    "folderPath": "raw_data",
+                                    "fileSystem": "realstate"
+                                }
+                            },
+                            "externalReferences": {
+                                "connection": "ae620a9a-d816-4533-9c97-f4f8185b27cf"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                            "type": "LakehouseWriteSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "LKH_AMHP_DEV",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "e81fea78-4fd9-46b8-85c1-0361f8950cde",
+                                        "artifactId": "7cae3d3f-bea7-426a-ab18-5882ed91fb35",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "properties",
+                                    "folderPath": "Raw"
+                                }
+                            }
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "EXTRACCION_CLIENTS",
+                "type": "Copy",
+                "state": "Inactive",
+                "onInactiveMarkAs": "Succeeded",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "BinarySource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true
+                        },
+                        "formatSettings": {
+                            "type": "BinaryReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "clients.csv",
+                                    "folderPath": "raw_data",
+                                    "fileSystem": "realstate"
+                                }
+                            },
+                            "externalReferences": {
+                                "connection": "ae620a9a-d816-4533-9c97-f4f8185b27cf"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                            "type": "LakehouseWriteSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "LKH_AMHP_DEV",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "e81fea78-4fd9-46b8-85c1-0361f8950cde",
+                                        "artifactId": "7cae3d3f-bea7-426a-ab18-5882ed91fb35",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "clientes",
+                                    "folderPath": "Raw"
+                                }
+                            }
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "EXTRACCION_CAMPAIGNS",
+                "type": "Copy",
+                "state": "Inactive",
+                "onInactiveMarkAs": "Succeeded",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "BinarySource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true
+                        },
+                        "formatSettings": {
+                            "type": "BinaryReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "campaigns.csv",
+                                    "folderPath": "raw_data",
+                                    "fileSystem": "realstate"
+                                }
+                            },
+                            "externalReferences": {
+                                "connection": "ae620a9a-d816-4533-9c97-f4f8185b27cf"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                            "type": "LakehouseWriteSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "LKH_AMHP_DEV",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "e81fea78-4fd9-46b8-85c1-0361f8950cde",
+                                        "artifactId": "7cae3d3f-bea7-426a-ab18-5882ed91fb35",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "campaigns",
+                                    "folderPath": "Raw"
+                                }
+                            }
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "EXTRACCION_LEADS",
+                "type": "Copy",
+                "state": "Inactive",
+                "onInactiveMarkAs": "Succeeded",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "BinarySource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true
+                        },
+                        "formatSettings": {
+                            "type": "BinaryReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "leads.csv",
+                                    "folderPath": "raw_data",
+                                    "fileSystem": "realstate"
+                                }
+                            },
+                            "externalReferences": {
+                                "connection": "ae620a9a-d816-4533-9c97-f4f8185b27cf"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                            "type": "LakehouseWriteSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "LKH_AMHP_DEV",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "e81fea78-4fd9-46b8-85c1-0361f8950cde",
+                                        "artifactId": "7cae3d3f-bea7-426a-ab18-5882ed91fb35",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "lead",
+                                    "folderPath": "Raw"
+                                }
+                            }
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "EXTRACCION_SALES",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "BinarySource",
+                        "storeSettings": {
+                            "type": "AzureBlobFSReadSettings",
+                            "recursive": true
+                        },
+                        "formatSettings": {
+                            "type": "BinaryReadSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "AzureBlobFSLocation",
+                                    "fileName": "sales.csv",
+                                    "folderPath": "raw_data",
+                                    "fileSystem": "realstate"
+                                }
+                            },
+                            "externalReferences": {
+                                "connection": "ae620a9a-d816-4533-9c97-f4f8185b27cf"
+                            }
+                        }
+                    },
+                    "sink": {
+                        "type": "BinarySink",
+                        "storeSettings": {
+                            "type": "LakehouseWriteSettings"
+                        },
+                        "datasetSettings": {
+                            "annotations": [],
+                            "linkedService": {
+                                "name": "LKH_AMHP_DEV",
+                                "properties": {
+                                    "annotations": [],
+                                    "type": "Lakehouse",
+                                    "typeProperties": {
+                                        "workspaceId": "e81fea78-4fd9-46b8-85c1-0361f8950cde",
+                                        "artifactId": "7cae3d3f-bea7-426a-ab18-5882ed91fb35",
+                                        "rootFolder": "Files"
+                                    }
+                                }
+                            },
+                            "type": "Binary",
+                            "typeProperties": {
+                                "location": {
+                                    "type": "LakehouseLocation",
+                                    "fileName": "sales",
+                                    "folderPath": "Raw"
+                                }
+                            }
+                        }
+                    },
+                    "enableStaging": false
+                }
+            }
+        ],
+        "lastModifiedByObjectId": "8e8bea7f-b2af-4173-b555-647ae3d3f9d9",
+        "lastPublishTime": "2025-06-27T11:30:00Z"
+    }
+}
